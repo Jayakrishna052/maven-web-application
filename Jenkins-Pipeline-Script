@@ -1,0 +1,33 @@
+node 
+{
+    def mavenHome = tool name: "Maven3.9.7"
+    stage('CheckoutCode') { // To get code from git
+        git branch: 'development', credentialsId: '1d9a4103-94f2-4f2d-8d38-1e784145d1f1', url: 'https://github.com/Jayakrishna052/maven-web-application.git'
+    }
+    
+    stage('Build') { // Run the maven build
+        sh "whoami"
+        sh "${mavenHome}/bin/mvn clean package"
+        sh "chmod 777 target/maven-web-application.war" // Add this line to give full permissions to the WAR file
+    }
+    /*
+    stage('SonarQubeReport') { // Execute SonarQubeReport
+        sh "${mavenHome}/bin/mvn clean sonar:sonar"
+    }
+    
+    stage('UploadArtifactintoNexus'){ // Upload Artifact into Nexus
+        sh "${mavenHome}/bin/mvn clean deploy"
+    }
+    
+    stage('DeployApplicationintoTomcat'){ // Deploy Application into Tomcat
+        sshagent(['4b80c45e-c5ec-4c0c-97eb-36616ae103fb']) {
+            sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@3.109.157.172:/opt/apache-tomcat-9.0.90/webapps/"
+        }
+    }
+   
+    stage('SendNotification'){
+        emailext body: '''Build Completed
+        Regards,
+        Jaya Krishna.''', subject: 'Pipeline_Project_Scripted way', to: 'jayakrishna052@gmail.com' 
+    } */
+}
