@@ -10,11 +10,11 @@ node
         sh "${mavenHome}/bin/mvn clean package"
         sh "chmod 777 target/maven-web-application.war" // Add this line to give full permissions to the WAR file
     }
-    /*
+    
     stage('SonarQubeReport') { // Execute SonarQubeReport
         sh "${mavenHome}/bin/mvn clean sonar:sonar"
     }
-    
+    /*
     stage('UploadArtifactintoNexus'){ // Upload Artifact into Nexus
         sh "${mavenHome}/bin/mvn clean deploy"
     }
